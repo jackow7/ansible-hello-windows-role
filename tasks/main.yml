@@ -1,0 +1,15 @@
+---
+- name: Ensure temp directory exists
+  ansible.windows.win_file:
+    path: C:\temp
+    state: directory
+
+- name: Create hello.txt with initial content
+  ansible.windows.win_copy:
+    dest: C:\temp\hello.txt
+    content: "Hello\n"
+
+- name: Append hostname to file
+  ansible.windows.win_shell: |
+    $hostname = $env:COMPUTERNAME
+    Add-Content -Path C:\temp\hello.txt -Value $hostname
